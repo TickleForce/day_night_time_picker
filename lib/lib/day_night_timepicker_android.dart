@@ -69,7 +69,7 @@ class DayNightTimePickerAndroidState extends State<DayNightTimePickerAndroid> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      const AmPm(),
+                      AmPm(onChange: (period) => timeState!.onAmPmChange(period)),
                       Expanded(
                         child: Row(
                           textDirection: ltrMode,

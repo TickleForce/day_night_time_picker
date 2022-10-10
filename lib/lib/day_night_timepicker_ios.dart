@@ -164,7 +164,15 @@ class _DayNightTimePickerIosState extends State<DayNightTimePickerIos> {
                     mainAxisSize: MainAxisSize.min,
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: <Widget>[
-                      const AmPm(),
+                      AmPm(
+                          onChange: (period) {
+                            timeState!.onAmPmChange(period);
+                            _hourController!.animateToItem(
+                              hours.indexOf(timeState!.time.hour),
+                              duration: Duration(milliseconds: 300),
+                              curve: Curves.easeInOut);
+                          }
+                      ),
                       Expanded(
                         child: Row(
                           textDirection: ltrMode,

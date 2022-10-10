@@ -6,7 +6,13 @@ class AmPm extends StatelessWidget {
   /// Default [TextStyle]
   final _style = const TextStyle(fontSize: 20);
 
-  const AmPm({Key? key}) : super(key: key);
+  /// The Change handle
+  final void Function(DayPeriod dayPeriod) onChange;
+
+  const AmPm({
+    Key? key,
+    required this.onChange,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -32,10 +38,7 @@ class AmPm extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: !isAm && !shouldDisableAM
-                ? () {
-                    timeState.onAmPmChange(DayPeriod.am);
-                  }
-                : null,
+                ? () => this.onChange(DayPeriod.am) : null,
             child: Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 8.0,
@@ -58,10 +61,7 @@ class AmPm extends StatelessWidget {
           color: Colors.transparent,
           child: InkWell(
             onTap: isAm && !shouldDisablePM
-                ? () {
-                    timeState.onAmPmChange(DayPeriod.pm);
-                  }
-                : null,
+                ? () => this.onChange(DayPeriod.pm) : null,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
               child: Opacity(
