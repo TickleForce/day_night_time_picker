@@ -45,14 +45,15 @@ class DisplayWheel extends StatelessWidget {
     final color =
         timeState.widget.accentColor ?? Theme.of(context).colorScheme.secondary;
     final unselectedColor = timeState.widget.unselectedColor ?? Colors.grey;
+    final textScaleFactor = MediaQuery.of(context).textScaleFactor;
 
     return SizedBox(
-      width: 60,
+      width: 60 * textScaleFactor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3.0),
         child: ListWheelScrollView.useDelegate(
           controller: controller,
-          itemExtent: 36,
+          itemExtent: 36 * textScaleFactor,
           physics: disabled
               ? const NeverScrollableScrollPhysics()
               : const FixedExtentScrollPhysics(),
