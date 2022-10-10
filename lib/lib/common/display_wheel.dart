@@ -51,31 +51,37 @@ class DisplayWheel extends StatelessWidget {
       width: 60 * textScaleFactor,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 3.0),
-        child: ListWheelScrollView.useDelegate(
-          controller: controller,
-          itemExtent: 36 * textScaleFactor,
-          physics: disabled
-              ? const NeverScrollableScrollPhysics()
-              : const FixedExtentScrollPhysics(),
-          overAndUnderCenterOpacity: disabled ? 0 : 0.25,
-          perspective: 0.01,
-          onSelectedItemChanged: onChange,
-          childDelegate: ListWheelChildBuilderDelegate(
-            childCount: items.length,
-            builder: (context, index) {
-              final val =
-                  (getModifiedLabel?.call(items[index]!) ?? (items[index]!))
-                      .toString()
-                      .padLeft(2, "0");
-              return Center(
-                child: Text(
-                  val,
-                  style: _commonTimeStyles.copyWith(
-                    color: isSelected ? color : unselectedColor,
+        child: NotificationListener<OverscrollIndicatorNotification>(
+          onNotification: (overScroll) {
+            overScroll.disallowGlow();
+            return false;
+          },
+          child: ListWheelScrollView.useDelegate(
+            controller: controller,
+            itemExtent: 36 * textScaleFactor,
+            physics: disabled
+                ? const NeverScrollableScrollPhysics()
+                : const FixedExtentScrollPhysics(),
+            overAndUnderCenterOpacity: disabled ? 0 : 0.25,
+            perspective: 0.01,
+            onSelectedItemChanged: onChange,
+            childDelegate: ListWheelChildBuilderDelegate(
+              childCount: items.length,
+              builder: (context, index) {
+                final val =
+                    (getModifiedLabel?.call(items[index]!) ?? (items[index]!))
+                        .toString()
+                        .padLeft(2, "0");
+                return Center(
+                  child: Text(
+                    val,
+                    style: _commonTimeStyles.copyWith(
+                      color: isSelected ? color : unselectedColor,
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
       ),
