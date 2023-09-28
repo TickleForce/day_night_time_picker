@@ -53,7 +53,7 @@ class DisplayWheel extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 3.0),
         child: NotificationListener<OverscrollIndicatorNotification>(
           onNotification: (overScroll) {
-            overScroll.disallowGlow();
+            overScroll.disallowIndicator();
             return false;
           },
           child: ListWheelScrollView.useDelegate(
